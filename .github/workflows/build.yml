@@ -30,10 +30,17 @@ jobs:
             # libgoogle-glog-dev depends on libunwind-dev, which Breaks the
             # runner image's libunwind-14-dev, and libunwind7-dev does not exist.
             # Unpack the SDK and install the shared libraries the node loads.
-            # Jammy ships libgsl.so.27; px_kinematics was built against libgsl.so.25.
+            # Jammy ships libgsl.so.27. px_kinematics needs libgsl.so.25.
+            # compat/libgsl.so.25 requires GLIBC_2.38, so use Debian bullseye's
+            # build, which only needs glibc 2.31.
             sudo dpkg-deb -x docs/DexHandSDK-2.1.1-Linux-nonlopt.deb /tmp/dexhandsdk
             sudo cp -a /tmp/dexhandsdk/usr/. /usr/
-            sudo cp -a compat/libgsl.so.25 compat/libgsl.so.25.1.0 /usr/local/lib/
+            curl -fsSL -o /tmp/libgsl25.deb \
+              http://deb.debian.org/debian/pool/main/g/gsl/libgsl25_2.6+dfsg-2_amd64.deb
+            sudo dpkg-deb -x /tmp/libgsl25.deb /tmp/libgsl25
+            sudo cp -a /tmp/libgsl25/usr/lib/x86_64-linux-gnu/libgsl.so.25 \
+              /tmp/libgsl25/usr/lib/x86_64-linux-gnu/libgsl.so.25.0.0 \
+              /usr/local/lib/
             sudo ldconfig
             sudo apt-get install -y \
               libopencv-dev \
