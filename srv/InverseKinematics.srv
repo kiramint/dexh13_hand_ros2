@@ -1,0 +1,6 @@
+# Sixteen joint radians: index, middle, ring, thumb, each joint1..joint4.
+float64[] joint_radians
+---
+bool success
+string message
+int16[] motor_position

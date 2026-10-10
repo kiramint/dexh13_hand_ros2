@@ -1,0 +1,5 @@
+# Sixteen joint angles in degrees, same order as joint_states.
+float64[] degrees
+---
+bool success
+string message

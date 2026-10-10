@@ -1,0 +1,9 @@
+---
+bool success
+string message
+int32 width
+int32 height
+# 3x3 row-major intrinsics, distortion coefficients, and the hand-eye matrix flattened row-major.
+float64[] camera_matrix
+float64[] dist_coeffs
+float64[] hand_eye_matrix

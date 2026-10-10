@@ -1,0 +1,7 @@
+string[] file_names
+bool confirm
+---
+bool success
+string message
+int32 error_code
+string error_name

@@ -1,0 +1,5 @@
+string interface_name
+---
+bool success
+string message
+uint16[] addresses

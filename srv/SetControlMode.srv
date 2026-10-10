@@ -1,0 +1,5 @@
+# position, speed, or torque.
+string mode
+---
+bool success
+string message

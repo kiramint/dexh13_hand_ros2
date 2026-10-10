@@ -1,0 +1,7 @@
+dexh13_hand/UpgradeFile[] files
+bool confirm
+---
+bool success
+string message
+int32 error_code
+string error_name

@@ -1,0 +1,6 @@
+# Empty reads the current 16 joint radians from the hand.
+float64[] current_radians
+---
+bool success
+string message
+float64[] command_radians

@@ -1,0 +1,5 @@
+---
+bool success
+string message
+string sdk_version
+string firmware_version

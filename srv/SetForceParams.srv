@@ -1,0 +1,9 @@
+# Eight values: index proximal, index distal, middle proximal, middle distal,
+# ring proximal, ring distal, thumb proximal, thumb distal.
+# impedance_factor is [1, 100]. reference_force_factor is [1, 10].
+float64[] impedance_factor
+float64[] reference_force_factor
+bool[] enable
+---
+bool success
+string message

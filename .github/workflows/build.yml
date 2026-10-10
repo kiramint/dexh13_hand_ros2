@@ -1,0 +1,88 @@
+name: build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            ros: humble
+          - os: ubuntu-24.04
+            ros: jazzy
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: ${{ matrix.ros }}
+
+      - name: Install DexHand SDK
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y ./docs/DexHandSDK-2.1.1-Linux-nonlopt.deb
+          if [ "${{ matrix.os }}" = "ubuntu-24.04" ]; then
+            sudo apt-get install -y \
+              libdc1394-25 \
+              libgstreamer1.0-0 \
+              libgstreamer-plugins-base1.0-0 \
+              libgphoto2-6t64 \
+              libgphoto2-port12t64
+          fi
+
+      - name: Build
+        shell: bash
+        run: |
+          set -euo pipefail
+          source "/opt/ros/${{ matrix.ros }}/setup.bash"
+          sudo apt-get install -y python3-colcon-common-extensions
+          colcon build --cmake-args -DPython3_EXECUTABLE=/usr/bin/python3
+
+      - name: Load the node without connecting
+        shell: bash
+        run: |
+          set -euo pipefail
+          source "/opt/ros/${{ matrix.ros }}/setup.bash"
+          source install/setup.bash
+          bin="$(ros2 pkg prefix dexh13_hand)/lib/dexh13_hand/hand_node"
+          if ldd "$bin" | grep -q 'not found'; then
+            ldd "$bin" | grep 'not found'
+            exit 1
+          fi
+          if [ "${{ matrix.os }}" = "ubuntu-24.04" ]; then
+            readelf -d "$bin" | grep -q 'ORIGIN/compat'
+            ldd "$bin" | grep -q '/dexh13_hand/compat/libdexhand_control_cpp.so'
+          else
+            if ldd "$bin" | grep -q '/dexh13_hand/compat/'; then
+              echo "Ubuntu 22.04 binary resolved libraries from compat/"
+              ldd "$bin"
+              exit 1
+            fi
+            ldd "$bin" | grep -q 'libdexhand_control_cpp.so'
+          fi
+          log="$(mktemp)"
+          ros2 run dexh13_hand hand_node --ros-args \
+            -r __node:=dexh13_ci \
+            -p connect_on_start:=false >"$log" 2>&1 &
+          pid=$!
+          ok=0
+          for _ in $(seq 1 25); do
+            if grep -q 'DexH13 side=' "$log"; then
+              ok=1
+              break
+            fi
+            if ! kill -0 "$pid" 2>/dev/null; then
+              break
+            fi
+            sleep 0.4
+          done
+          kill "$pid" 2>/dev/null || true
+          wait "$pid" 2>/dev/null || true
+          cat "$log"
+          test "$ok" = 1

@@ -1,0 +1,7 @@
+bool apply_current
+int32 max_current_ma
+bool apply_speed
+int32 max_speed_rpm
+---
+bool success
+string message

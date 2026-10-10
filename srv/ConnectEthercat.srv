@@ -1,0 +1,8 @@
+uint16 address
+string interface_name
+# Pass "none" to skip the palm camera.
+string camera_port
+---
+bool success
+string message
+string hand_type

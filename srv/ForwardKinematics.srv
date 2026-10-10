@@ -1,0 +1,5 @@
+int16[13] motor_position
+---
+bool success
+string message
+float64[] joint_radians
