@@ -26,8 +26,30 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update
-          sudo apt-get install -y ./docs/DexHandSDK-2.1.1-Linux-nonlopt.deb
-          if [ "${{ matrix.os }}" = "ubuntu-24.04" ]; then
+          if [ "${{ matrix.os }}" = "ubuntu-22.04" ]; then
+            # libgoogle-glog-dev depends on libunwind-dev, which Breaks the
+            # runner image's libunwind-14-dev, and libunwind7-dev does not exist.
+            # Unpack the SDK and install the shared libraries the node loads.
+            # Jammy ships libgsl.so.27; px_kinematics was built against libgsl.so.25.
+            sudo dpkg-deb -x docs/DexHandSDK-2.1.1-Linux-nonlopt.deb /tmp/dexhandsdk
+            sudo cp -a /tmp/dexhandsdk/usr/. /usr/
+            sudo cp -a compat/libgsl.so.25 compat/libgsl.so.25.1.0 /usr/local/lib/
+            sudo ldconfig
+            sudo apt-get install -y \
+              libopencv-dev \
+              libboost-filesystem1.74.0 \
+              libspdlog1 \
+              libfmt8 \
+              libgoogle-glog0v5 \
+              libopenblas0 \
+              libyaml-cpp0.7 \
+              libjsoncpp25 \
+              libnlopt0 \
+              libgslcblas0
+          else
+            sudo apt-get install -y ./docs/DexHandSDK-2.1.1-Linux-nonlopt.deb
+            # Bundled OpenCV 4.5 videoio still needs these SONAMEs. Noble's
+            # libopencv-dev is 4.6 and does not pull the 4.5 camera backends.
             sudo apt-get install -y \
               libdc1394-25 \
               libgstreamer1.0-0 \
@@ -40,7 +62,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # setup.bash reads unset AMENT_* variables.
+          set +u
           source "/opt/ros/${{ matrix.ros }}/setup.bash"
+          set -u
           sudo apt-get install -y python3-colcon-common-extensions
           colcon build --cmake-args -DPython3_EXECUTABLE=/usr/bin/python3
 
@@ -48,8 +73,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # setup.bash reads unset AMENT_* variables.
+          set +u
           source "/opt/ros/${{ matrix.ros }}/setup.bash"
           source install/setup.bash
+          set -u
           bin="$(ros2 pkg prefix dexh13_hand)/lib/dexh13_hand/hand_node"
           if ldd "$bin" | grep -q 'not found'; then
             ldd "$bin" | grep 'not found'

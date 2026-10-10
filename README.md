@@ -23,7 +23,7 @@ source install/setup.zsh
 
 24.04 上节点链接 `compat/` 里的 OpenCV 4.5，不链接系统 OpenCV 4.6，也不使用 `cv_bridge`。节点不调用 `showImage`。
 
-GitHub Actions 会在 Ubuntu 22.04 和 24.04 上各编译一次，并用 `connect_on_start:=false` 启动节点，确认进程能加载且不打开串口。22.04 的任务使用 Humble，并检查可执行文件没有链到包内 `compat/`。24.04 的任务使用 Jazzy，并检查 `RPATH` 为 `$ORIGIN/compat`。
+GitHub Actions 会在 Ubuntu 22.04 和 24.04 上各编译一次，并用 `connect_on_start:=false` 启动节点，确认进程能加载且不打开串口。22.04 的任务使用 Humble，并检查可执行文件没有链到包内 `compat/`。24.04 的任务使用 Jazzy，并检查 `RPATH` 为 `$ORIGIN/compat`。22.04 的托管镜像预装了 LLVM 的 `libunwind`，和 deb 依赖的 `libgoogle-glog-dev` 冲突，所以 22.04 的 Action 只解包 SDK，再安装运行所需的库；Jammy 没有 `libgsl.so.25`，这一份从 `compat/` 拷到 `/usr/local/lib`。source ROS 环境时要关掉 `nounset`，`setup.bash` 会读取尚未赋值的 `AMENT_*` 变量。
 
 ## 启动
 
