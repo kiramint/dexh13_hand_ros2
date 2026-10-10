@@ -48,14 +48,19 @@ jobs:
               libgslcblas0
           else
             sudo apt-get install -y ./docs/DexHandSDK-2.1.1-Linux-nonlopt.deb
-            # Bundled OpenCV 4.5 videoio still needs these SONAMEs. Noble's
-            # libopencv-dev is 4.6 and does not pull the 4.5 camera backends.
+            # Bundled OpenCV 4.5 videoio still needs the 4.5 camera backends.
+            # Noble's libopencv-dev is 4.6 and does not pull them. px_kinematics
+            # needs libgslcblas.so.0. Bundled FFmpeg 4.4 needs libaribb24 and
+            # libsmbclient, which the runner image does not ship.
             sudo apt-get install -y \
               libdc1394-25 \
               libgstreamer1.0-0 \
               libgstreamer-plugins-base1.0-0 \
               libgphoto2-6t64 \
-              libgphoto2-port12t64
+              libgphoto2-port12t64 \
+              libgslcblas0 \
+              libaribb24-0t64 \
+              libsmbclient0
           fi
 
       - name: Build
