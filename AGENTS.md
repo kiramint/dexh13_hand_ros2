@@ -1,6 +1,6 @@
 # AGENTS.md — dexh13_hand
 
-本包只驱动一只帕西尼 DexH13。不要改 `qrby_hand`，不要在其他包里加两种手的切换。
+本包只驱动一只帕西尼 DexH13。不要改 `qrby_hand`。Dexman 选用哪只手写在 `dexman_description` 的 xacro 参数里，不在本包里切换。
 
 - 一个进程一只手。左右手用同一个可执行文件起两个进程，靠 `side` 和 `hand_port` 区分。
 - 设备回报的手型必须和 `side` 一致，`auto` 除外。正运动学、逆运动学和力控都使用这个手型。
