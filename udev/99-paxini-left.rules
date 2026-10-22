@@ -1,0 +1,6 @@
+# Managed by bind_paxini_udev.py
+# Device alias: /dev/paxini/LEFT; identity strategy: serial
+# Do not match ttyUSB indices. Path strategy requires the same physical USB port.
+SUBSYSTEM=="tty", SUBSYSTEMS=="usb", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="23a3", IMPORT{builtin}="usb_id", IMPORT{builtin}="path_id"
+SUBSYSTEM=="tty", SUBSYSTEMS=="usb-serial", ENV{.ID_PORT}="$attr{port_number}"
+SUBSYSTEM=="tty", SUBSYSTEMS=="usb", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="23a3", ATTRS{serial}=="CPDXb114J19", ENV{ID_USB_INTERFACE_NUM}=="00", ENV{.ID_PORT}=="0", SYMLINK+="paxini/LEFT", GROUP="dialout", MODE="0660"
