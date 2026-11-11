@@ -104,6 +104,7 @@ public:
         (expected_side_ == Side::kAuto ? "hand" : toString(expected_side_)) + "_palm";
     }
 
+    ros2_control_mode_ = declare_parameter<bool>("ros2_control_mode", false);
     connect_on_start_ = declare_parameter<bool>("connect_on_start", true);
     enable_on_start_ = declare_parameter<bool>("enable_on_start", true);
     init_on_start_ = declare_parameter<bool>("init_on_start", false);
@@ -131,7 +132,7 @@ public:
 
     const auto command_qos = rclcpp::QoS(rclcpp::KeepLast(1));
     joint_cmd_sub_ = create_subscription<sensor_msgs::msg::JointState>(
-      "~/joint_position_cmd", command_qos,
+      ros2_control_mode_ ? "~/ros2_control/joint_position_cmd" : "~/joint_position_cmd", command_qos,
       [this](sensor_msgs::msg::JointState::SharedPtr msg) { onJointCommand(std::move(msg)); });
     speed_cmd_sub_ = create_subscription<msg::MotorCommand>(
       "~/motor_speed_cmd", command_qos,
@@ -181,7 +182,7 @@ public:
         fill(sdk_->initMotorPosition(), response);
       });
     mode_srv_ = create_service<srv::SetControlMode>(
-      "~/set_control_mode",
+      ros2_control_mode_ ? "~/ros2_control/set_control_mode" : "~/set_control_mode",
       [this](const srv::SetControlMode::Request::SharedPtr request,
       srv::SetControlMode::Response::SharedPtr response) {
         onSetMode(request, response);
@@ -327,6 +328,18 @@ public:
     }
 
     publishStatus(false, false, Mode::kNone, false);
+    if (ros2_control_mode_) {
+      speed_cmd_sub_.reset(); current_cmd_sub_.reset(); motor_position_cmd_sub_.reset();
+      init_srv_.reset(); set_deg_srv_.reset(); force_enable_srv_.reset();
+      mainboard_srv_.reset(); driveboard_srv_.reset(); ethercat_srv_.reset();
+      bridge_watchdog_ = create_wall_timer(std::chrono::milliseconds(20), [this] {
+        if (!bridge_enabled_ || !bridge_seen_command_ || std::chrono::steady_clock::now() - bridge_last_command_ <= std::chrono::milliseconds(500)) return;
+        bridge_enabled_ = false;
+        const auto result = sdk_->disable();
+        RCLCPP_ERROR(get_logger(), "ros2_control command timeout; motor disable: %s; explicit enable required", result.message.c_str());
+      });
+      if (init_on_start_) throw std::invalid_argument("ros2_control_mode forbids init_on_start");
+    }
     if (connect_on_start_) {
       if (hand_port_.empty()) {
         RCLCPP_ERROR(get_logger(), "connect_on_start 为 true，但 hand_port 为空，未连接");
@@ -346,6 +359,7 @@ public:
 
   ~Dexh13Node() override
   {
+    bridge_watchdog_.reset();
     state_timer_.reset();
     tactile_timer_.reset();
     detail_timer_.reset();
@@ -712,6 +726,10 @@ private:
 
   void onJointCommand(const sensor_msgs::msg::JointState::SharedPtr & msg)
   {
+    if (ros2_control_mode_) {
+      const double age = (now() - rclcpp::Time(msg->header.stamp)).seconds();
+      if (!bridge_enabled_ || !std::isfinite(age) || age < -0.05 || age > 0.2) return;
+    }
     std::string why;
     if (!acceptMotion(Mode::kPosition, true, why)) {
       warnThrottle(why.c_str());
@@ -724,6 +742,9 @@ private:
       return;
     }
     const ApiResult result = sdk_->setJointRadians(radians);
+    if (ros2_control_mode_ && result.success) {
+      bridge_seen_command_ = true; bridge_last_command_ = std::chrono::steady_clock::now();
+    }
     if (!result.success) {
       warnThrottle(result.message.c_str());
     }
@@ -929,17 +950,23 @@ private:
     const SetBool::Request::SharedPtr & request, const SetBool::Response::SharedPtr & response)
   {
     if (!request->data) {
+      bridge_enabled_ = false;
       stopForce();
       fill(sdk_->disable(), response);
       return;
     }
     fill(sdk_->enable(), response);
+    if (ros2_control_mode_) { bridge_enabled_ = response->success; bridge_seen_command_ = false; }
   }
 
   void onSetMode(
     const srv::SetControlMode::Request::SharedPtr & request,
     const srv::SetControlMode::Response::SharedPtr & response)
   {
+    if (ros2_control_mode_ && request->mode != "position") {
+      response->success = false; response->message = "ros2_control hand supports position only"; return;
+    }
+
     Mode mode = Mode::kNone;
     if (!parseMode(request->mode, mode)) {
       response->success = false;
@@ -1291,6 +1318,10 @@ private:
   std::string prefix_;
   std::string frame_id_;
   std::vector<std::string> joint_names_;
+  // All ROS callbacks use the default mutually exclusive callback group.
+  bool ros2_control_mode_{false}, bridge_enabled_{false}, bridge_seen_command_{false};
+  std::chrono::steady_clock::time_point bridge_last_command_{};
+  rclcpp::TimerBase::SharedPtr bridge_watchdog_;
   bool connect_on_start_{true};
   bool enable_on_start_{true};
   bool init_on_start_{false};

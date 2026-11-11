@@ -212,3 +212,10 @@ ros2 launch dexh13_hand hand.launch.py side:=left name:=dexh13_left \
 | 拇指指尖 | `0x0105` |
 
 升级进行时，运动指令和其他会占用设备的服务返回失败。进程退出会等升级调用返回，升级未完成时不断开设备。
+
+
+## ROS 2 Control 桥接模式
+
+`ros2_control_mode` 默认 `false`。Dexman 的独立 `start_ros2_ctrl.launch.py` 将其设为 `true`，通过 `~/ros2_control/joint_position_cmd` 接收带时间戳的 16 关节角度，通过 `~/ros2_control/set_control_mode` 选择 position；13 个主动关节由 `dexh13_hardware` 映射，被动 joint4 填当前反馈。该模式禁用其他原始运动、力控和初始化入口，避免控制权冲突。
+
+启动不会调用 `initMotorPosition`。电机由硬件插件激活时通过 `~/enable_motor` 使能。独立 0.5 s 命令看门狗在失联后禁用电机，恢复必须显式使能。原有 launch 保持默认行为。完整使用说明见主仓库 `docs/ROS2_Control与仿真.md`。
