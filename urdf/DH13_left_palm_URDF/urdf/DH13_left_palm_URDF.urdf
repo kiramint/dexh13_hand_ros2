@@ -1,0 +1,1611 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="DH13_left_palm_URDF">
+  <link
+    name="left_palm_link">
+    <inertial>
+      <origin
+        xyz="0.06196 -0.00065288 -0.0092301"
+        rpy="0 0 0" />
+      <mass
+        value="0.11485" />
+      <inertia
+        ixx="0.00011573"
+        ixy="-3.2138E-06"
+        ixz="4.4062E-06"
+        iyy="0.00014474"
+        iyz="1.2505E-06"
+        izz="0.00023363" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_palm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_palm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="left_index_link_0">
+    <inertial>
+      <origin
+        xyz="0.0003082 8.3996E-10 8.9625E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.00017708" />
+      <inertia
+        ixx="3.4764E-09"
+        ixy="-1.0733E-16"
+        ixz="-4.6319E-13"
+        iyy="6.7235E-10"
+        iyz="4.7794E-17"
+        izz="3.8971E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_link_0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_link_0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_index_joint_0"
+    type="revolute">
+    <origin
+      xyz="0.13528 0.0315 0.0017506"
+      rpy="0 0 0" />
+    <parent
+      link="left_palm_link" />
+    <child
+      link="left_index_link_0" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.35"
+      upper="0.35"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_index_link_1">
+    <inertial>
+      <origin
+        xyz="0.019459 -0.0089626 0.00010394"
+        rpy="0 0 0" />
+      <mass
+        value="0.0078183" />
+      <inertia
+        ixx="7.54E-07"
+        ixy="-1.7883E-07"
+        ixz="3.1645E-08"
+        iyy="1.8102E-06"
+        iyz="3.5288E-09"
+        izz="1.5883E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_index_joint_1"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="1.5708 0.00014676 0" />
+    <parent
+      link="left_index_link_0" />
+    <child
+      link="left_index_link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_index_link_2">
+    <inertial>
+      <origin
+        xyz="0.013765 -0.007282 0.00033826"
+        rpy="0 0 0" />
+      <mass
+        value="0.0044469" />
+      <inertia
+        ixx="3.5739E-07"
+        ixy="-2.9391E-08"
+        ixz="7.1623E-09"
+        iyy="5.9055E-07"
+        iyz="1.8053E-09"
+        izz="4.3346E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_index_joint_2"
+    type="revolute">
+    <origin
+      xyz="0.040003 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="left_index_link_1" />
+    <child
+      link="left_index_link_2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_index_link_3">
+    <inertial>
+      <origin
+        xyz="0.0064531 -0.010804 -3.5522E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.003702" />
+      <inertia
+        ixx="1.6316E-07"
+        ixy="6.2605E-08"
+        ixz="2.9741E-10"
+        iyy="3.8482E-07"
+        iyz="-8.743E-10"
+        izz="3.0845E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_index_joint_3"
+    type="revolute">
+    <origin
+      xyz="0.03 0 0"
+      rpy="0 0 0.00014676" />
+    <parent
+      link="left_index_link_2" />
+    <child
+      link="left_index_link_3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_index_tactile_link_2">
+    <inertial>
+      <origin
+        xyz="0.00010985 0.0099417 0.0044346"
+        rpy="0 0 0" />
+      <mass
+        value="0.004135" />
+      <inertia
+        ixx="2.2239E-07"
+        ixy="9.0194E-10"
+        ixz="8.9494E-10"
+        iyy="2.2376E-07"
+        iyz="2.4712E-08"
+        izz="3.5457E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_tactile_link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_tactile_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_index_tactile_joint_2"
+    type="fixed">
+    <origin
+      xyz="0.0029506 -0.0067666 0"
+      rpy="-1.5708 -1.5708 -0.19313" />
+    <parent
+      link="left_index_link_3" />
+    <child
+      link="left_index_tactile_link_2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_index_tactile_link_1">
+    <inertial>
+      <origin
+        xyz="3.0417E-05 0.010953 0.00070066"
+        rpy="0 0 0" />
+      <mass
+        value="0.0014631" />
+      <inertia
+        ixx="5.8535E-08"
+        ixy="2.9661E-11"
+        ixz="-5.9519E-13"
+        iyy="6.0357E-08"
+        iyz="-1.4826E-11"
+        izz="1.1599E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_tactile_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_tactile_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_index_tactile_joint_1"
+    type="fixed">
+    <origin
+      xyz="0.0041704 0.0024994 0"
+      rpy="1.5708 -1.5708 3.1414" />
+    <parent
+      link="left_index_link_2" />
+    <child
+      link="left_index_tactile_link_1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_index_tactile_link_0">
+    <inertial>
+      <origin
+        xyz="-5.6351E-06 0.014075 0.00086164"
+        rpy="0 0 0" />
+      <mass
+        value="0.0020235" />
+      <inertia
+        ixx="1.3986E-07"
+        ixy="1.3343E-11"
+        ixz="-1.2581E-12"
+        iyy="9.1585E-08"
+        iyz="-2.4033E-10"
+        izz="2.2769E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_tactile_link_0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_index_tactile_link_0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_index_tactile_joint_0"
+    type="fixed">
+    <origin
+      xyz="0.0072627 0.0025011 0"
+      rpy="-1.5706 -1.5708 -6.6984E-05" />
+    <parent
+      link="left_index_link_1" />
+    <child
+      link="left_index_tactile_link_0" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_middle_link_0">
+    <inertial>
+      <origin
+        xyz="0.0003082 8.3996E-10 8.9625E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.00017708" />
+      <inertia
+        ixx="3.4764E-09"
+        ixy="-1.0733E-16"
+        ixz="-4.6319E-13"
+        iyy="6.7235E-10"
+        iyz="4.7794E-17"
+        izz="3.8971E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_link_0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_link_0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_middle_joint_0"
+    type="revolute">
+    <origin
+      xyz="0.13528 0 0.0017506"
+      rpy="0 0 0" />
+    <parent
+      link="left_palm_link" />
+    <child
+      link="left_middle_link_0" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.35"
+      upper="0.35"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_middle_link_1">
+    <inertial>
+      <origin
+        xyz="0.019458 -0.0089655 0.00010393"
+        rpy="0 0 0" />
+      <mass
+        value="0.0078183" />
+      <inertia
+        ixx="7.5395E-07"
+        ixy="-1.7868E-07"
+        ixz="3.1645E-08"
+        iyy="1.8102E-06"
+        iyz="3.5242E-09"
+        izz="1.5883E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_middle_joint_1"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="1.5708 0 0" />
+    <parent
+      link="left_middle_link_0" />
+    <child
+      link="left_middle_link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_middle_link_2">
+    <inertial>
+      <origin
+        xyz="0.013765 -0.007282 0.00033826"
+        rpy="0 0 0" />
+      <mass
+        value="0.0044469" />
+      <inertia
+        ixx="3.5739E-07"
+        ixy="-2.9392E-08"
+        ixz="7.1623E-09"
+        iyy="5.9055E-07"
+        iyz="1.8054E-09"
+        izz="4.3346E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_middle_joint_2"
+    type="revolute">
+    <origin
+      xyz="0.039999 1.0076E-05 0"
+      rpy="0 0 -0.00014676" />
+    <parent
+      link="left_middle_link_1" />
+    <child
+      link="left_middle_link_2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_middle_link_3">
+    <inertial>
+      <origin
+        xyz="0.0064585 -0.010816 -3.5359E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.003702" />
+      <inertia
+        ixx="1.6314E-07"
+        ixy="6.2572E-08"
+        ixz="2.9652E-10"
+        iyy="3.8483E-07"
+        iyz="-8.74E-10"
+        izz="3.0844E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_middle_joint_3"
+    type="revolute">
+    <origin
+      xyz="0.03 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="left_middle_link_2" />
+    <child
+      link="left_middle_link_3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_middle_tactile_link_2">
+    <inertial>
+      <origin
+        xyz="0.00010984 0.0099417 0.0044346"
+        rpy="0 0 0" />
+      <mass
+        value="0.004135" />
+      <inertia
+        ixx="2.2239E-07"
+        ixy="9.0193E-10"
+        ixz="8.9495E-10"
+        iyy="2.2376E-07"
+        iyz="2.4712E-08"
+        izz="3.5457E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_tactile_link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_tactile_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_middle_tactile_joint_2"
+    type="fixed">
+    <origin
+      xyz="0.0029554 -0.0067793 0"
+      rpy="-1.5708 -1.5708 -0.19313" />
+    <parent
+      link="left_middle_link_3" />
+    <child
+      link="left_middle_tactile_link_2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_middle_tactile_link_1">
+    <inertial>
+      <origin
+        xyz="3.0417E-05 0.010953 0.00070066"
+        rpy="0 0 0" />
+      <mass
+        value="0.0014631" />
+      <inertia
+        ixx="5.8535E-08"
+        ixy="2.9661E-11"
+        ixz="-5.9519E-13"
+        iyy="6.0357E-08"
+        iyz="-1.4826E-11"
+        izz="1.1599E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_tactile_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_tactile_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_middle_tactile_joint_1"
+    type="fixed">
+    <origin
+      xyz="0.0041704 0.0024994 0"
+      rpy="1.5708 -1.5708 3.1414" />
+    <parent
+      link="left_middle_link_2" />
+    <child
+      link="left_middle_tactile_link_1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_middle_tactile_link_0">
+    <inertial>
+      <origin
+        xyz="-5.6351E-06 0.014075 0.00086164"
+        rpy="0 0 0" />
+      <mass
+        value="0.0020235" />
+      <inertia
+        ixx="1.3986E-07"
+        ixy="1.3343E-11"
+        ixz="-1.2581E-12"
+        iyy="9.1585E-08"
+        iyz="-2.4033E-10"
+        izz="2.2769E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_tactile_link_0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_middle_tactile_link_0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_middle_tactile_joint_0"
+    type="fixed">
+    <origin
+      xyz="0.0072631 0.0025 0"
+      rpy="-1.5706 -1.5708 -0.00021374" />
+    <parent
+      link="left_middle_link_1" />
+    <child
+      link="left_middle_tactile_link_0" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_ring_link_0">
+    <inertial>
+      <origin
+        xyz="0.0003082 8.3996E-10 8.9625E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.00017708" />
+      <inertia
+        ixx="3.4764E-09"
+        ixy="-1.0733E-16"
+        ixz="-4.6319E-13"
+        iyy="6.7235E-10"
+        iyz="4.7794E-17"
+        izz="3.8971E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_link_0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_link_0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ring_joint_0"
+    type="revolute">
+    <origin
+      xyz="0.13528 -0.0315 0.0017506"
+      rpy="0 0 0" />
+    <parent
+      link="left_palm_link" />
+    <child
+      link="left_ring_link_0" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.35"
+      upper="0.35"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_ring_link_1">
+    <inertial>
+      <origin
+        xyz="0.019459 -0.0089626 0.00010394"
+        rpy="0 0 0" />
+      <mass
+        value="0.0078183" />
+      <inertia
+        ixx="7.54E-07"
+        ixy="-1.7883E-07"
+        ixz="3.1644E-08"
+        iyy="1.8102E-06"
+        iyz="3.5287E-09"
+        izz="1.5883E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ring_joint_1"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="1.5708 0.00014676 0" />
+    <parent
+      link="left_ring_link_0" />
+    <child
+      link="left_ring_link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_ring_link_2">
+    <inertial>
+      <origin
+        xyz="0.013766 -0.0072799 0.00033826"
+        rpy="0 0 0" />
+      <mass
+        value="0.0044469" />
+      <inertia
+        ixx="3.574E-07"
+        ixy="-2.9427E-08"
+        ixz="7.162E-09"
+        iyy="5.9055E-07"
+        iyz="1.8065E-09"
+        izz="4.3346E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ring_joint_2"
+    type="revolute">
+    <origin
+      xyz="0.040002 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="left_ring_link_1" />
+    <child
+      link="left_ring_link_2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_ring_link_3">
+    <inertial>
+      <origin
+        xyz="0.006456 -0.010808 -3.5409E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.003702" />
+      <inertia
+        ixx="1.6314E-07"
+        ixy="6.2569E-08"
+        ixz="2.9688E-10"
+        iyy="3.8483E-07"
+        iyz="-8.7406E-10"
+        izz="3.0845E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ring_joint_3"
+    type="revolute">
+    <origin
+      xyz="0.03 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="left_ring_link_2" />
+    <child
+      link="left_ring_link_3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_ring_tactile_link_2">
+    <inertial>
+      <origin
+        xyz="0.00010985 0.0099417 0.0044346"
+        rpy="0 0 0" />
+      <mass
+        value="0.004135" />
+      <inertia
+        ixx="2.2239E-07"
+        ixy="9.0194E-10"
+        ixz="8.9494E-10"
+        iyy="2.2376E-07"
+        iyz="2.4712E-08"
+        izz="3.5457E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_tactile_link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_tactile_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ring_tactile_joint_2"
+    type="fixed">
+    <origin
+      xyz="0.0029528 -0.0067712 0"
+      rpy="-1.5708 -1.5708 -0.19313" />
+    <parent
+      link="left_ring_link_3" />
+    <child
+      link="left_ring_tactile_link_2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_ring_tactile_link_1">
+    <inertial>
+      <origin
+        xyz="3.0891E-05 0.010953 0.00070066"
+        rpy="0 0 0" />
+      <mass
+        value="0.0014631" />
+      <inertia
+        ixx="5.8535E-08"
+        ixy="2.974E-11"
+        ixz="-5.9576E-13"
+        iyy="6.0357E-08"
+        iyz="-1.4826E-11"
+        izz="1.1599E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_tactile_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_tactile_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ring_tactile_joint_1"
+    type="fixed">
+    <origin
+      xyz="0.00417 0.0025 0"
+      rpy="-1.5708 -1.5708 0" />
+    <parent
+      link="left_ring_link_2" />
+    <child
+      link="left_ring_tactile_link_1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_ring_tactile_link_0">
+    <inertial>
+      <origin
+        xyz="-5.6351E-06 0.014075 0.00086164"
+        rpy="0 0 0" />
+      <mass
+        value="0.0020235" />
+      <inertia
+        ixx="1.3986E-07"
+        ixy="1.3343E-11"
+        ixz="-1.2581E-12"
+        iyy="9.1585E-08"
+        iyz="-2.4033E-10"
+        izz="2.2769E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_tactile_link_0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_ring_tactile_link_0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ring_tactile_joint_0"
+    type="fixed">
+    <origin
+      xyz="0.0072627 0.0025011 0"
+      rpy="-1.5706 -1.5708 -6.6986E-05" />
+    <parent
+      link="left_ring_link_1" />
+    <child
+      link="left_ring_tactile_link_0" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_thumb_link_0">
+    <inertial>
+      <origin
+        xyz="4.0788E-06 0.00030817 8.9625E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.00017708" />
+      <inertia
+        ixx="6.7284E-10"
+        ixy="3.7114E-11"
+        ixz="-6.176E-15"
+        iyy="3.4759E-09"
+        iyz="-4.6315E-13"
+        izz="3.8971E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_thumb_link_0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_thumb_link_0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_thumb_joint_0"
+    type="revolute">
+    <origin
+      xyz="0.039278 0.0365 0.0017506"
+      rpy="0 0 0" />
+    <parent
+      link="left_palm_link" />
+    <child
+      link="left_thumb_link_0" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.35"
+      upper="0.35"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_thumb_link_1">
+    <inertial>
+      <origin
+        xyz="0.020789 0.00059014 0.0076477"
+        rpy="0 0 0" />
+      <mass
+        value="0.0046089" />
+      <inertia
+        ixx="6.3541E-07"
+        ixy="-2.5718E-07"
+        ixz="-5.0782E-07"
+        iyy="1.4909E-06"
+        iyz="-1.6353E-07"
+        izz="1.1494E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_thumb_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_thumb_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_thumb_joint_1"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="1.5708 0 1.5576" />
+    <parent
+      link="left_thumb_link_0" />
+    <child
+      link="left_thumb_link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_thumb_link_2">
+    <inertial>
+      <origin
+        xyz="0.034137 -0.013432 3.8558E-08"
+        rpy="0 0 0" />
+      <mass
+        value="0.015672" />
+      <inertia
+        ixx="3.2613E-06"
+        ixy="-1.5779E-07"
+        ixz="3.4474E-08"
+        iyy="7.9576E-06"
+        iyz="2.3928E-10"
+        izz="7.6295E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_thumb_link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_thumb_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_thumb_joint_2"
+    type="revolute">
+    <origin
+      xyz="0.038999 0.0090001 0.0215"
+      rpy="1.5708 0.013237 0" />
+    <parent
+      link="left_thumb_link_1" />
+    <child
+      link="left_thumb_link_2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_thumb_link_3">
+    <inertial>
+      <origin
+        xyz="0.012526 -0.014249 8.8309E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0079169" />
+      <inertia
+        ixx="5.2835E-07"
+        ixy="1.4555E-07"
+        ixz="1.0103E-08"
+        iyy="1.0273E-06"
+        iyz="-2.0347E-09"
+        izz="7.8482E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_thumb_link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_thumb_link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_thumb_joint_3"
+    type="revolute">
+    <origin
+      xyz="0.065494 0.00086701 0"
+      rpy="0 0 0" />
+    <parent
+      link="left_thumb_link_2" />
+    <child
+      link="left_thumb_link_3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_thumb_tactile_link_1">
+    <inertial>
+      <origin
+        xyz="9.131E-08 0.012685 0.0046617"
+        rpy="0 0 0" />
+      <mass
+        value="0.0064251" />
+      <inertia
+        ixx="5.3988E-07"
+        ixy="1.2311E-11"
+        ixz="-5.891E-13"
+        iyy="4.3107E-07"
+        iyz="6.045E-08"
+        izz="8.2587E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_thumb_tactile_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_thumb_tactile_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_thumb_tactile_joint_1"
+    type="fixed">
+    <origin
+      xyz="0.0044234 -0.0069828 0"
+      rpy="1.309 -1.5708 -3.1416" />
+    <parent
+      link="left_thumb_link_3" />
+    <child
+      link="left_thumb_tactile_link_1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_thumb_tactile_link_0">
+    <inertial>
+      <origin
+        xyz="2.232E-07 0.026387 0.0015645"
+        rpy="0 0 0" />
+      <mass
+        value="0.0035386" />
+      <inertia
+        ixx="7.2143E-07"
+        ixy="-2.4588E-11"
+        ixz="6.5031E-13"
+        iyy="1.4587E-07"
+        iyz="-8.6723E-10"
+        izz="8.6068E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_thumb_tactile_link_0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/left_thumb_tactile_link_0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_thumb_tactile_joint_0"
+    type="fixed">
+    <origin
+      xyz="0.0063893 0.004585 0"
+      rpy="-1.584 -1.5708 0" />
+    <parent
+      link="left_thumb_link_2" />
+    <child
+      link="left_thumb_tactile_link_0" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="camera_link">
+    <inertial>
+      <origin
+        xyz="1.435E-14 2.7883E-10 -0.009152"
+        rpy="0 0 0" />
+      <mass
+        value="0.0028889" />
+      <inertia
+        ixx="1.0893E-07"
+        ixy="2.117E-12"
+        ixz="1.6991E-19"
+        iyy="1.207E-07"
+        iyz="3.2631E-15"
+        izz="9.2109E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/camera_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DH13_left_palm_URDF/meshes/camera_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="camera_joint"
+    type="fixed">
+    <origin
+      xyz="0.04941 0 0.023801"
+      rpy="-1.0472 0 -1.5708" />
+    <parent
+      link="left_palm_link" />
+    <child
+      link="camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>
