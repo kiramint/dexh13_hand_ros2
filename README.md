@@ -134,7 +134,7 @@ ros2 topic pub --once /dexh13_left/joint_position_cmd sensor_msgs/msg/JointState
 | `~/disconnect` | `std_srvs/Trigger` | 失能并断开。已识别的手型会保留给运动学 |
 | `~/enable_motor` | `std_srvs/SetBool` | 使能或失能。失能会停止力控环 |
 | `~/init_motor_position` | `std_srvs/Trigger` | 回到初始位。手会运动，大约 5 秒，并停止力控环 |
-| `~/set_control_mode` | `dexh13_hand/SetControlMode` | `position`、`speed`、`torque`。离开位置模式会停止力控环 |
+| `~/set_control_mode` | `dexh13_hand/SetControlMode` | `position`、`speed`、`torque`。重复设置当前模式直接成功；切换到其他模式前必须先下使能电机。离开位置模式会停止力控环 |
 | `~/set_motor_limits` | `dexh13_hand/SetMotorLimits` | `apply_current` / `apply_speed` 分别决定是否写入 |
 | `~/clear_fault` | `std_srvs/Trigger` | 清故障 |
 | `~/get_fault` | `dexh13_hand/GetFault` | 读当前故障 |
@@ -219,3 +219,14 @@ ros2 launch dexh13_hand hand.launch.py side:=left name:=dexh13_left \
 `ros2_control_mode` 默认 `false`。Dexman 的独立 `start_ros2_ctrl.launch.py` 将其设为 `true`，通过 `~/ros2_control/joint_position_cmd` 接收带时间戳的 16 关节角度，通过 `~/ros2_control/set_control_mode` 选择 position；13 个主动关节由 `dexh13_hardware` 映射，被动 joint4 填当前反馈。该模式禁用其他原始运动、力控和初始化入口，避免控制权冲突。
 
 启动不会调用 `initMotorPosition`。电机由硬件插件激活时通过 `~/enable_motor` 使能。独立 0.5 s 命令看门狗在失联后禁用电机，恢复必须显式使能。原有 launch 保持默认行为。完整使用说明见主仓库 `docs/ROS2_Control与仿真.md`。
+
+
+### 控制模式与电机使能顺序
+
+厂家 SDK 在电机已使能时会拒绝设置控制模式，即使请求的仍是当前模式。
+驱动的模式设置服务会先检查当前模式：重复请求当前模式直接成功；切换到其他模式前，
+调用方需先通过 `~/enable_motor` 下使能，再设置模式并重新使能。实际 SDK 设置失败会继续返回失败。
+
+ROS 2 Control 硬件插件在硬件激活时设置位置模式并使能电机；手控制器启动时只确认使能。
+停止控制器会禁能，重新激活时恢复使能。2026-11-12 修复了控制器激活时重复设置模式导致
+左右手启动失败的问题，用户确认修复后真机测试通过。

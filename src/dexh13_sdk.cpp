@@ -741,6 +741,15 @@ ApiResult Dexh13Sdk::setMode(Mode mode)
     if (mode == Mode::kNone) {
       return failResult("控制模式无效");
     }
+    // The vendor SDK rejects setMotorControlMode while motors are enabled,
+    // including requests for the mode already selected. Repeated activation
+    // must not turn that no-op into a hardware error.
+    if (modeFromSdk(impl.control->getMotorControlMode()) == mode) {
+      return okResult("已处于请求的控制模式");
+    }
+    if (impl.control->isMotorEnabled()) {
+      return failResult("切换控制模式前必须先下使能电机");
+    }
     return fromBool(impl.control->setMotorControlMode(modeToSdk(mode)), "设置控制模式");
   });
 }
