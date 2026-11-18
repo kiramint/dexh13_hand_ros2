@@ -45,6 +45,13 @@ ros2 launch dexh13_hand hand.launch.py side:=right name:=dexh13_right hand_port:
 
 默认传输是 RS485。EtherCAT 使用 `scan_ethercat` 和 `connect_ethercat`。
 
+每次连接后，节点先将仍处于使能状态的电机下使能，再显式设置 `control_mode`，
+最后按 `enable_on_start` 决定是否使能。模式设置失败时终止这次启动流程，保持失能。
+SDK 除硬件模式外还保存内部 `user mode`，即使硬件已处于位置模式，也需要在本次连接中
+成功调用一次模式设置；否则 SDK 可能报 `enable flag: 1, user mode: 0` 并拒绝位置指令。
+`HandStatus.control_mode` 在本次连接尚未成功设置模式时为 `none`。
+同一连接中，已初始化且硬件模式一致的重复设置仍可直接成功。
+
 ## 关节与电机
 
 DexH13 这个名字里的 13 是自由度：13 个电机驱动 13 个主动关节。接口仍然收发 16 个串联关节角，顺序是食指、中指、无名指、拇指，每指 `joint1` 到 `joint4`。`joint1` 是侧摆，范围 [-20°, +20°]；`joint2`、`joint3`、`joint4` 是屈曲，范围 [0°, 90°]。

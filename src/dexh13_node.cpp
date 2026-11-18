@@ -671,6 +671,20 @@ private:
       return connected;
     }
     rememberConnection();
+    // A new SDK connection must initialize its local command mode while the
+    // motors are disabled, including when hardware retained position mode.
+    if (sdk_->context().motor_enabled) {
+      const ApiResult disabled = sdk_->disable();
+      if (!disabled.success) {
+        RCLCPP_ERROR(get_logger(), "启动时下使能失败: %s", disabled.message.c_str());
+        return disabled;
+      }
+    }
+    const ApiResult mode = sdk_->setMode(startup_mode_);
+    if (!mode.success) {
+      RCLCPP_ERROR(get_logger(), "设置控制模式失败: %s", mode.message.c_str());
+      return mode;
+    }
     if (init_on_start_) {
       const ApiResult init = sdk_->initMotorPosition();
       if (init.success) {
@@ -678,10 +692,6 @@ private:
       } else {
         RCLCPP_ERROR(get_logger(), "初始化电机位置失败: %s", init.message.c_str());
       }
-    }
-    const ApiResult mode = sdk_->setMode(startup_mode_);
-    if (!mode.success) {
-      RCLCPP_ERROR(get_logger(), "设置控制模式失败: %s", mode.message.c_str());
     }
     int current = max_current_ma_;
     int speed = max_speed_rpm_;

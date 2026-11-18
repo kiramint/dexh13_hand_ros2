@@ -458,6 +458,7 @@ struct Dexh13SdkImpl
   bool serial{false};
   bool force_params_ready{false};
   bool undistort_ready{false};
+  Mode configured_mode{Mode::kNone};
   Side expected{Side::kNone};
   Side detected{Side::kNone};
   std::unique_ptr<paxini::bot::dexh13::DexH13Control> control;
@@ -486,6 +487,7 @@ void safeDisconnect(Dexh13SdkImpl & impl)
   } catch (...) {
   }
   impl.connected = false;
+  impl.configured_mode = Mode::kNone;
   impl.serial = false;
 }
 
@@ -614,6 +616,7 @@ ApiResult Dexh13Sdk::connectSerial(
     return failResult("isConnectHandy 返回未连接");
   }
   impl_->connected = true;
+  impl_->configured_mode = Mode::kNone;
   impl_->detected = detected;
   return okResult(std::string("已连接，手型为 ") + toString(detected));
 }
@@ -655,6 +658,7 @@ ApiResult Dexh13Sdk::connectEthercat(
       std::string("设备回报 ") + toString(detected) + "，参数 side 是 " + toString(expected));
   }
   impl_->connected = true;
+  impl_->configured_mode = Mode::kNone;
   impl_->detected = detected;
   return okResult(std::string("已通过 EtherCAT 连接，手型为 ") + toString(detected));
 }
@@ -667,6 +671,7 @@ ApiResult Dexh13Sdk::disconnect()
     }
     const int rc = impl.control->disconnectHandy();
     impl.connected = false;
+    impl.configured_mode = Mode::kNone;
     impl.serial = false;
     return fromInt(rc, "断开连接");
   });
@@ -704,7 +709,10 @@ CommandContext Dexh13Sdk::context() const
   }
   try {
     ctx.motor_enabled = impl_->control->isMotorEnabled();
-    ctx.mode = modeFromSdk(impl_->control->getMotorControlMode());
+    const Mode hardware_mode = modeFromSdk(impl_->control->getMotorControlMode());
+    if (hardware_mode == impl_->configured_mode) {
+      ctx.mode = hardware_mode;
+    }
   } catch (...) {
   }
   return ctx;
@@ -741,16 +749,23 @@ ApiResult Dexh13Sdk::setMode(Mode mode)
     if (mode == Mode::kNone) {
       return failResult("控制模式无效");
     }
-    // The vendor SDK rejects setMotorControlMode while motors are enabled,
-    // including requests for the mode already selected. Repeated activation
-    // must not turn that no-op into a hardware error.
-    if (modeFromSdk(impl.control->getMotorControlMode()) == mode) {
+    // getMotorControlMode reads the hardware, but the SDK also keeps a local
+    // "user mode" checked by motion commands. Only a successful setter in this
+    // connection initializes it, even when the hardware already has that mode.
+    const Mode hardware_mode = modeFromSdk(impl.control->getMotorControlMode());
+    if (impl.configured_mode == mode && hardware_mode == mode) {
       return okResult("已处于请求的控制模式");
     }
     if (impl.control->isMotorEnabled()) {
-      return failResult("切换控制模式前必须先下使能电机");
+      return failResult("设置或初始化控制模式前必须先下使能电机");
     }
-    return fromBool(impl.control->setMotorControlMode(modeToSdk(mode)), "设置控制模式");
+    impl.configured_mode = Mode::kNone;
+    const ApiResult result = fromBool(
+      impl.control->setMotorControlMode(modeToSdk(mode)), "设置控制模式");
+    if (result.success) {
+      impl.configured_mode = mode;
+    }
+    return result;
   });
 }
 
@@ -771,6 +786,11 @@ ApiResult Dexh13Sdk::setMaxSpeed(int rpm)
 ApiResult Dexh13Sdk::enable()
 {
   return invoke(*impl_, true, [](Dexh13SdkImpl & impl) {
+    if (impl.configured_mode == Mode::kNone ||
+      modeFromSdk(impl.control->getMotorControlMode()) != impl.configured_mode)
+    {
+      return failResult("使能前必须先成功设置控制模式");
+    }
     return fromBool(impl.control->enableMotor(), "使能电机");
   });
 }
@@ -895,6 +915,7 @@ std::optional<PollResult> Dexh13Sdk::tryPollState()
   try {
     if (impl_->serial && !impl_->control->isConnectHandy()) {
       impl_->connected = false;
+      impl_->configured_mode = Mode::kNone;
       result.snapshot.connected = false;
       result.ok = false;
       result.message = "isConnectHandy 返回未连接";
@@ -918,7 +939,10 @@ std::optional<PollResult> Dexh13Sdk::tryPollState()
       result.message += "读取电机电流失败";
     }
     result.snapshot.motor_enabled = impl_->control->isMotorEnabled();
-    result.snapshot.mode = modeFromSdk(impl_->control->getMotorControlMode());
+    const Mode hardware_mode = modeFromSdk(impl_->control->getMotorControlMode());
+    if (hardware_mode == impl_->configured_mode) {
+      result.snapshot.mode = hardware_mode;
+    }
     result.snapshot.fault = impl_->control->isFault();
     result.snapshot.connected = true;
     if (result.snapshot.fault) {

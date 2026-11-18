@@ -143,5 +143,22 @@ if(DEXH13_USE_BUNDLED_COMPAT)
   )
 endif()
 
+if(BUILD_TESTING)
+  find_package(ament_cmake_gtest REQUIRED)
+  ament_add_gtest(test_sdk_mode
+    test/test_sdk_mode.cpp
+    src/dexh13_sdk.cpp
+    src/dexh13_node.cpp
+    ENV ROS_LOG_DIR=/tmp/dexh13_mode_test_logs ROS_DOMAIN_ID=160
+  )
+  # Exercise the same wrapper, node and SDK link configuration as hand_node.
+  foreach(property INCLUDE_DIRECTORIES LINK_LIBRARIES LINK_OPTIONS BUILD_RPATH)
+    get_target_property(value hand_node ${property})
+    if(value)
+      set_property(TARGET test_sdk_mode APPEND PROPERTY ${property} ${value})
+    endif()
+  endforeach()
+endif()
+
 ament_export_dependencies(rosidl_default_runtime)
 ament_package()
